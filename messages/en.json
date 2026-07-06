@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "forum": "Forum",
+    "saved": "Saved"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong. Please try again.",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {page} of {totalPages}",
+    "user": "User",
+    "language": "Language"
+  },
+  "forum": {
+    "title": "Forum Feed",
+    "selectCourse": "Course",
+    "noCourse": "Select a course to view posts.",
+    "noPosts": "No posts in this course yet.",
+    "loading": "Loading posts..."
+  },
+  "saved": {
+    "title": "Saved Posts",
+    "empty": "You have not saved any posts yet.",
+    "emptyHint": "Bookmark posts from the forum to see them here.",
+    "loading": "Loading saved posts..."
+  },
+  "post": {
+    "save": "Save",
+    "unsave": "Unsave",
+    "savesCount": {
+      "one": "1 save",
+      "other": "{count} saves"
+    }
+  },
+  "roles": {
+    "student": "Student",
+    "moderator": "Moderator"
+  }
+}

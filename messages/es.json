@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "forum": "Foro",
+    "saved": "Guardados"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Algo salió mal. Inténtalo de nuevo.",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "page": "Página {page} de {totalPages}",
+    "user": "Usuario",
+    "language": "Idioma"
+  },
+  "forum": {
+    "title": "Foro del curso",
+    "selectCourse": "Curso",
+    "noCourse": "Selecciona un curso para ver publicaciones.",
+    "noPosts": "Aún no hay publicaciones en este curso.",
+    "loading": "Cargando publicaciones..."
+  },
+  "saved": {
+    "title": "Publicaciones guardadas",
+    "empty": "Aún no has guardado ninguna publicación.",
+    "emptyHint": "Marca publicaciones en el foro para verlas aquí.",
+    "loading": "Cargando publicaciones guardadas..."
+  },
+  "post": {
+    "save": "Guardar",
+    "unsave": "Quitar",
+    "savesCount": {
+      "one": "1 guardado",
+      "other": "{count} guardados"
+    }
+  },
+  "roles": {
+    "student": "Estudiante",
+    "moderator": "Moderador"
+  }
+}
