@@ -67,9 +67,10 @@ export async function unsavePost(
 export async function getSavedPosts(
   user: AuthUser,
   pagination: PaginationParams,
+  ownerId: string = user.id,
 ) {
   const { items, total } = await findActiveSavedPostsByUser(
-    user.id,
+    ownerId,
     pagination,
   );
 
