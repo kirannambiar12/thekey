@@ -135,7 +135,3 @@ UI → React Query hooks → API client → Route handlers → Services → Repo
 ```
 
 Business rules live in `services/`. Repositories perform database operations only. Route handlers validate input, authenticate, and delegate to services.
-
-## License
-
-Private — take-home assessment.
