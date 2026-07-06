@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Community Forum — Saved Posts
 
-## Getting Started
+A small full-stack slice of a course discussion forum with bookmark (Saved Posts) support. Built with Next.js 15, SQLite, Drizzle ORM, and React Query.
 
-First, run the development server:
+## Features
+
+- Paginated forum feed per course (newest first)
+- Save / unsave posts with idempotent API behavior
+- Soft-deleted saves with reactivation (history preserved)
+- `hasSaved` and `savesCount` on every post in feed and saved list
+- Paginated saved posts view with empty state
+- Stubbed auth via `x-user-id` and `x-role` request headers
+- English and Spanish UI with pluralized save counts
+- Unit and API tests via Vitest
+
+## Requirements
+
+- Node.js 20+
+- npm
+
+## Installation
+
+```bash
+npm install
+```
+
+## Database migration
+
+Create the SQLite database and apply migrations:
+
+```bash
+npm run db:migrate
+```
+
+To generate a new migration after schema changes:
+
+```bash
+npm run db:generate
+```
+
+## Seeding
+
+Load demo data (users, courses, enrollments, posts, saved posts):
+
+```bash
+npm run db:seed
+```
+
+This runs migrations if needed, then resets and seeds `data/forum.db`.
+
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). The app redirects to `/forum`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Use the header controls to switch demo users and locale. Auth is stubbed — no login required.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Demo users
 
-## Learn More
+| User   | Role      | Enrolled courses        |
+|--------|-----------|-------------------------|
+| Alice  | student   | Intro to TypeScript     |
+| Bob    | student   | Both courses            |
+| Carol  | student   | Web Security            |
+| Morgan | moderator | All courses (via role)  |
 
-To learn more about Next.js, take a look at the following resources:
+## Testing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm test
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Tests use an isolated database at `data/test.db`. Watch mode:
 
-## Deploy on Vercel
+```bash
+npm run test:watch
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Production build
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm start
+```
+
+## API overview
+
+All endpoints require headers:
+
+```
+x-user-id: user-alice
+x-role: student
+```
+
+| Method   | Path                              | Description                    |
+|----------|-----------------------------------|--------------------------------|
+| `GET`    | `/api/courses`                    | Courses visible to the user    |
+| `GET`    | `/api/courses/:courseId/posts`    | Paginated feed                 |
+| `GET`    | `/api/posts/:postId`              | Single post                    |
+| `POST`   | `/api/posts/:postId/save`         | Save post                      |
+| `DELETE` | `/api/posts/:postId/save`         | Unsave post                    |
+| `GET`    | `/api/saved-posts`                | Paginated saved posts          |
+
+Query params: `page` (default 1), `limit` (default 20, max 100).
+
+## Project structure
+
+```
+app/
+  api/                  # Route handlers (auth, validation, I/O)
+  forum/                # Forum feed page
+  saved/                # Saved posts page
+components/             # UI components and providers
+drizzle/                # SQL migrations
+hooks/                  # React Query hooks
+lib/
+  api/                  # Typed API client and query keys
+  auth/                 # Stub auth helpers and context
+  db/                   # Drizzle schema, connection, seed
+  i18n/                 # Locale context and message helpers
+  validators/           # Zod schemas
+messages/               # en.json, es.json
+repositories/           # Database access only
+services/               # Business logic
+tests/                  # Vitest unit and API tests
+```
+
+## Architecture
+
+```
+UI → React Query hooks → API client → Route handlers → Services → Repositories → SQLite
+```
+
+Business rules live in `services/`. Repositories perform database operations only. Route handlers validate input, authenticate, and delegate to services.
+
+## License
+
+Private — take-home assessment.
