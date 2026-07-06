@@ -50,7 +50,7 @@ Feed and saved list batch-load save counts (`GROUP BY post_id`) and the current 
 
 ### i18n
 
-User-facing strings live in `messages/en.json` and `messages/es.json`. A small `LocaleProvider` handles lookup and pluralization (`one` / `other`). I skipped `next-intl` routing to keep scope small — the dependency is installed but unused; a production app would likely adopt full locale routing.
+User-facing strings live in `messages/en.json` and `messages/es.json`. A small `LocaleProvider` handles lookup and pluralization (`one` / `other`). A production app might adopt URL-based locale routing (`/en/forum`, `/es/forum`).
 
 ### Testing
 
@@ -62,7 +62,7 @@ Service tests run against a real SQLite test database (`data/test.db`) rather th
 |--------|-----|
 | SQLite over Postgres | Zero infra for reviewers; Drizzle makes swapping straightforward |
 | Stub auth headers | Assignment scope — real identity is out of scope |
-| Custom i18n vs next-intl | Faster to ship; sufficient for two locales and pluralization |
+| Custom i18n | Lightweight JSON catalogs; sufficient for two locales and pluralization |
 | No optimistic UI updates | Simpler cache invalidation after mutations; acceptable for this slice |
 | Desktop-first UI | Minimal Tailwind layout; no component library |
 | Serial test runs | Avoids SQLite contention on a shared test file |
@@ -78,7 +78,7 @@ Service tests run against a real SQLite test database (`data/test.db`) rather th
 
 ## What I'd do next
 
-1. **Remove unused `next-intl` dependency** or wire up proper locale routing with URL prefixes (`/en/forum`, `/es/forum`).
+1. **Locale routing** — URL prefixes (`/en/forum`, `/es/forum`) with Next.js middleware.
 2. **Optimistic bookmark toggle** — update React Query cache on mutate, roll back on error.
 3. **Postgres migration** — change `DATABASE_PATH` to a connection string; schema is already Drizzle-native.
 4. **Concurrency** — wrap save/unsave in a transaction with `SELECT` on the unique row to handle simultaneous toggles cleanly.

@@ -1,4 +1,7 @@
 {
+  "app": {
+    "title": "Foro de la comunidad"
+  },
   "nav": {
     "forum": "Foro",
     "saved": "Guardados"
@@ -36,5 +39,9 @@
   "roles": {
     "student": "Estudiante",
     "moderator": "Moderador"
+  },
+  "locale": {
+    "en": "Inglés",
+    "es": "Español"
   }
 }

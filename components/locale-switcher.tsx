@@ -1,12 +1,7 @@
 "use client";
 
-import { locales } from "@/lib/i18n";
+import { locales, type Locale } from "@/lib/i18n";
 import { useTranslations } from "@/lib/i18n/context";
-
-const LOCALE_LABELS = {
-  en: "English",
-  es: "Español",
-} as const;
 
 export function LocaleSwitcher() {
   const { locale, setLocale, t } = useTranslations();
@@ -17,11 +12,11 @@ export function LocaleSwitcher() {
       <select
         className="rounded border border-gray-300 bg-white px-2 py-1.5 text-sm"
         value={locale}
-        onChange={(event) => setLocale(event.target.value as typeof locale)}
+        onChange={(event) => setLocale(event.target.value as Locale)}
       >
         {locales.map((value) => (
           <option key={value} value={value}>
-            {LOCALE_LABELS[value]}
+            {t(`locale.${value}`)}
           </option>
         ))}
       </select>

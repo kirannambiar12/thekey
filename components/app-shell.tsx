@@ -29,7 +29,7 @@ export function AppShell({ children }: AppShellProps) {
         <div className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
             <Link href="/forum" className="text-lg font-semibold">
-              Community Forum
+              {t("app.title")}
             </Link>
             <nav className="ml-4 flex gap-1">
               <Link href="/forum" className={navLinkClass("/forum")}>
